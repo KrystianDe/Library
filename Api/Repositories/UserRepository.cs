@@ -29,13 +29,14 @@ namespace Library.Repositories
         {
             var newUser = await _context.User.AddAsync(new User
             {
+              
                 Name = userToAdd.Name,
                 Email = userToAdd.Email,
                 Login = userToAdd.Login,
                 Surname = userToAdd.Surname,
                 Password = new PasswordHasher().HashPassword(userToAdd.Password),
                 IdUserRoleDict = (int)UserRoleHelper.UserRolesEnum.Reader
-            });
+            }) ; ; ; ;
 
             await _context.SaveChangesAsync();
             
