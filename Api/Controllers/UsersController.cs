@@ -32,9 +32,9 @@ namespace Library.Controllers
         }
 
         [HttpGet("{idUser:int}")]
-        public async Task<IActionResult> GetUser([FromRoute] int idUser)
+        public async Task<IActionResult> GetUser([FromRoute] int IdUser)
         {
-            var res = await _userRepository.GetUser(idUser);
+            var res = await _userRepository.GetUser(IdUser);
             return Ok(res);
         }
         

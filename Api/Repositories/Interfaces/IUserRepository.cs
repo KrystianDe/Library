@@ -11,6 +11,6 @@ namespace Library.Repositories.Interfaces
 
         Task<User> AddUser(UserDto userToAdd);
 
-        Task<User> GetUser(int idUser);
+        Task<User> GetUser(int IdUser);
     }
 }

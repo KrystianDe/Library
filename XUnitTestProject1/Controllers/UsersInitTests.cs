@@ -32,18 +32,30 @@ namespace XUnitTestProject1.Controllers
 
                 _db.User.Add(new User
                 {
-                    IdUser = 1,
+                   
                     Email = "jd@pja.edu.pl",
                     Name = "Daniel",
                     Surname = "Jabłoński",
                     Login = "jd",
                     Password = "ASNDKWQOJRJOP!JO@JOP"
-                });
+                }
+                );
 
+               
                 _db.Book.Add(new Book
                 {
                     IdBook = 1
                 }); ;
+
+
+                _db.BookBorrow.Add(new BookBorrow
+                {
+                    IdBook = 1,
+                    IdUser = 1
+                }); ;
+
+
+
 
                 _db.SaveChanges();
             }
@@ -92,9 +104,9 @@ namespace XUnitTestProject1.Controllers
             var newBookBarrow = new BookBorrow()
             {
 
-                
+
                 IdUser = 1,
-                IdBookBorrow = 1,
+               // IdBookBorrow = 1,
                 IdBook = 1
 
             };
@@ -109,6 +121,8 @@ namespace XUnitTestProject1.Controllers
 
             // Assert
             response.EnsureSuccessStatusCode();
+
+           
         }
 
         [Fact]
@@ -120,6 +134,7 @@ namespace XUnitTestProject1.Controllers
                 IdBook = 1,
                 IdUser = 1,
                 IdBookBorrow = 1,
+                Comments = "Good"
                
             };
 
@@ -132,6 +147,11 @@ namespace XUnitTestProject1.Controllers
             var postResponses = await _client.PostAsync($"{ _client.BaseAddress.AbsoluteUri}api/book-borrows", payload);
 
             postResponses.EnsureSuccessStatusCode();
+
+            var responseString = await postResponses.Content.ReadAsStringAsync();
+
+            Assert.Contains("Good", responseString);
+           
         }
 
         [Fact]
@@ -142,42 +162,15 @@ namespace XUnitTestProject1.Controllers
 
             var newUser = new User()
             {
-                IdUser = 1,
+                IdUser = 2,
                 Email = "bkosl@pja.edu.pl",
-                Name = "Grzegsorz",
-                Surname = "Noswak",
+                Name = "Grzegorz",
+                Surname = "Nowak",
                 Login = "Woss",
                 Password = "BSsNDKWQOJRJOP!JO@JOP"
             };
 
-            List<User> usersToPost = new List<User>{
-                new User
-                {
-                    IdUser = 32,
-                    Email = "ws@pja.edu.pl",
-                    Name = "Wojtek",
-                    Surname = "Bob",
-                    Login = "Zah",
-                    Password = "ASNDKWQOJRJOP!JO@JOP"
-                },
-                new User
-                    {
-                        IdUser = 35,
-                        Email = "ws@pja.edu.pl",
-                        Name = "Wojtek",
-                        Surname = "Bob",
-                        Login = "Zah",
-                        Password = "ASNDKWQOJRJOP!JO@JOP"
-                    },
-                new User
-                    {
-                        IdUser = 37,
-                        Email = "bkol@pja.edu.pl",
-                        Name = "Grzegorz",
-                        Surname = "Nowak",
-                        Login = "Wos",
-                        Password = "ASNDKWQOJRJOP!JO@JOP"
-                    }};
+           
 
             var serializedUser = JsonConvert.SerializeObject(newUser);
 

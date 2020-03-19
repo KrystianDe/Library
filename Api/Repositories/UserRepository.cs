@@ -29,7 +29,7 @@ namespace Library.Repositories
         {
             var newUser = await _context.User.AddAsync(new User
             {
-              
+                
                 Name = userToAdd.Name,
                 Email = userToAdd.Email,
                 Login = userToAdd.Login,
@@ -38,14 +38,15 @@ namespace Library.Repositories
                 IdUserRoleDict = (int)UserRoleHelper.UserRolesEnum.Reader
             }) ; ; ; ;
 
+            
             await _context.SaveChangesAsync();
             
             return newUser.Entity;
         }
 
-        public async Task<User> GetUser(int idUser)
+        public async Task<User> GetUser(int IdUser)
         {
-            var userFromDb = await _context.User.SingleAsync(x => x.IdUser == idUser);
+            var userFromDb = await _context.User.SingleAsync(x => x.IdUser == IdUser);
 
             return userFromDb;
         }

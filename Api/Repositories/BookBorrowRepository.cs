@@ -20,7 +20,7 @@ namespace Library.Repositories
                 IdUser = borrow.IdUser,
                 IdBook =  borrow.IdBook,
                 BorrowDate = DateTime.Now,
-                Comments = borrow.Comment
+                Comments = borrow.Comments
             });
 
             await _context.SaveChangesAsync();

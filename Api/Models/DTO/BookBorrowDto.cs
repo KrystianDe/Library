@@ -4,6 +4,6 @@
     {
         public int IdUser { get; set; }
         public int IdBook { get; set; }
-        public string Comment { get; set; }
+        public string Comments { get; set; }
     }
 }
