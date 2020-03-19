@@ -32,7 +32,7 @@ namespace XUnitTestProject1.Controllers
 
                 _db.User.Add(new User
                 {
-                   
+
                     Email = "jd@pja.edu.pl",
                     Name = "Daniel",
                     Surname = "Jabłoński",
@@ -41,7 +41,7 @@ namespace XUnitTestProject1.Controllers
                 }
                 );
 
-               
+
                 _db.Book.Add(new Book
                 {
                     IdBook = 1
@@ -50,6 +50,7 @@ namespace XUnitTestProject1.Controllers
 
                 _db.BookBorrow.Add(new BookBorrow
                 {
+                    IdBookBorrow = 1,
                     IdBook = 1,
                     IdUser = 1
                 }); ;
@@ -90,11 +91,11 @@ namespace XUnitTestProject1.Controllers
             httpResponse.EnsureSuccessStatusCode();
             var content = await httpResponse.Content.ReadAsStringAsync();
             var user = JsonConvert.DeserializeObject<User>(content);
-          
+
 
             Assert.True(user.Login == "jd");
             Assert.True(user.Email == "jd@pja.edu.pl");
-           
+
         }
 
 
@@ -106,8 +107,8 @@ namespace XUnitTestProject1.Controllers
 
 
                 IdUser = 1,
-               // IdBookBorrow = 1,
-                IdBook = 1
+                IdBook = 1,
+                Comments = "Najlepsza"
 
             };
 
@@ -122,7 +123,9 @@ namespace XUnitTestProject1.Controllers
             // Assert
             response.EnsureSuccessStatusCode();
 
-           
+
+
+
         }
 
         [Fact]
@@ -133,12 +136,12 @@ namespace XUnitTestProject1.Controllers
 
                 IdBook = 1,
                 IdUser = 1,
-                IdBookBorrow = 1,
+                IdBookBorrow = 2,
                 Comments = "Good"
-               
+
             };
 
-          
+
 
             var serializedUser = JsonConvert.SerializeObject(newBookBarrow);
 
@@ -151,7 +154,7 @@ namespace XUnitTestProject1.Controllers
             var responseString = await postResponses.Content.ReadAsStringAsync();
 
             Assert.Contains("Good", responseString);
-           
+
         }
 
         [Fact]
@@ -170,7 +173,7 @@ namespace XUnitTestProject1.Controllers
                 Password = "BSsNDKWQOJRJOP!JO@JOP"
             };
 
-           
+
 
             var serializedUser = JsonConvert.SerializeObject(newUser);
 
@@ -179,8 +182,12 @@ namespace XUnitTestProject1.Controllers
             var postResponses = await _client.PostAsync($"{ _client.BaseAddress.AbsoluteUri}api/users", payload);
 
             postResponses.EnsureSuccessStatusCode();
-           
-      
+
+            var responseString = await postResponses.Content.ReadAsStringAsync();
+
+            Assert.Contains("Grzegorz", responseString);
+            Assert.Contains("Woss", responseString);
+
 
         }
 
