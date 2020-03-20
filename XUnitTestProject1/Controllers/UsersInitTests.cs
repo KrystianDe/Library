@@ -98,65 +98,6 @@ namespace XUnitTestProject1.Controllers
 
         }
 
-
-        [Fact]
-        public async Task Put_Book_Barrow()
-        {
-            var newBookBarrow = new BookBorrow()
-            {
-
-
-                IdUser = 1,
-                IdBook = 1,
-                Comments = "Najlepsza"
-
-            };
-
-            var serializedUser = JsonConvert.SerializeObject(newBookBarrow);
-
-            var payload = new StringContent(serializedUser, Encoding.UTF8, "application/json");
-
-
-            // Act
-            var response = await _client.PutAsync($"{ _client.BaseAddress.AbsoluteUri}api/book-borrows/1", payload);
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-
-
-
-
-        }
-
-        [Fact]
-        public async Task POST_Book_Barrow()
-        {
-            var newBookBarrow = new BookBorrow()
-            {
-
-                IdBook = 1,
-                IdUser = 1,
-                IdBookBorrow = 2,
-                Comments = "Good"
-
-            };
-
-
-
-            var serializedUser = JsonConvert.SerializeObject(newBookBarrow);
-
-            var payload = new StringContent(serializedUser, Encoding.UTF8, "application/json");
-
-            var postResponses = await _client.PostAsync($"{ _client.BaseAddress.AbsoluteUri}api/book-borrows", payload);
-
-            postResponses.EnsureSuccessStatusCode();
-
-            var responseString = await postResponses.Content.ReadAsStringAsync();
-
-            Assert.Contains("Good", responseString);
-
-        }
-
         [Fact]
         public async Task Post_User()
         {
